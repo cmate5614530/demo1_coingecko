@@ -12,7 +12,7 @@ Multi-language Ethereum price in the Bitcoin and in the USD, where the price wou
 
 - clone the repository
 - npm install
-- To run the project 
+- To run the project : 
     npm start
     * To run the project with development nodemon: npm run dev
 - you can see the page on 'http://localhost:5000'
