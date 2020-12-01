@@ -1,0 +1,13 @@
+
+.main-wrap {
+    padding-left: 10%;
+    padding-right:10%;
+    padding-top:50px;
+    padding-bottom:30px;
+}
+h1,h2,h3,h4{
+    text-align: center;
+}
+.current_price{
+    margin-top: 50px;
+}

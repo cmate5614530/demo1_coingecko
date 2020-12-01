@@ -1,1 +1,58 @@
-<h1>ddddddddddddddddddd</h1>
+<% layout('layout/app') -%>
+<div id="demo_coingecko">
+    <label for="lang">Choose a language:</label>
+
+    <select name="lang" id="lang" @change="onLangChange($event)">
+        <option value="en">English</option>
+        <option value="ru">Russian</option>
+        <option value="ja">Japanese</option>
+    </select>
+
+    <h1>{{name}}</h1>
+    <div v-html="description"></div>
+    <h3 class="current_price">{{btc}} BTC = {{usd}} USD</h3>
+    
+</div>
+
+<script>
+    new Vue({
+        el:'#demo_coingecko',
+        data(){
+            return {
+                coinData: {},
+                name: '',
+                description: '',
+                lang: 'en',
+                btc: 0,
+                usd: 0,
+            }
+        },
+        mounted(){
+            this.getCoinData(this.lang);
+            setInterval(() => {
+                this.getCoinData(this.lang);
+            }, 40000);
+            
+        },
+        methods:{
+            getCoinData(lang){
+                fetch('https://api.coingecko.com/api/v3/coins/ethereum',{
+                    method: 'GET',
+                }).then(res=>res.json())
+                .then(res=>{
+                    this.name = res.localization[lang];
+                    this.description = res.description[lang];
+                    this.btc = res.market_data.current_price.btc;
+                    this.usd = res.market_data.current_price.usd;
+                    this.coinData = res;
+                });
+            },
+            onLangChange(event){
+                let language = event.target.value;
+                this.lang = event.target.value;
+                this.name = this.coinData.localization[language];
+                this.description = this.coinData.description[language];
+            }
+        }
+    })
+</script>
